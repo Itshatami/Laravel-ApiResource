@@ -55,4 +55,11 @@ class AuthController extends Controller
         $token = $user->createToken('myWeb')->accessToken;
         return $this->sResponse(['token' => $token], 'successfuly loged in', 200);
     }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+        return $this->sResponse($user, 'log out done', 200);
+    }
 }
